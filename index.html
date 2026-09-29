@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>С Днем Рождения!</title>
+    <title>SYSTEM_OVERRIDE // HB_DAY</title>
+    <!-- Подключаем киберпанк-шрифт из Google Fonts -->
+    <link href="https://googleapis.com" rel="stylesheet">
     <!-- Библиотека для праздничного салюта-конфетти -->
     <script src="https://jsdelivr.net"></script>
     
@@ -15,137 +17,187 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Play', sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Центрирует всё содержимое по вертикали */
+            justify-content: center;
             align-items: center;
             text-align: center;
-            color: #ffffff;
+            color: #00f0ff; /* Фирменный киберпанк бирюзовый */
             padding: 40px 20px;
-            /* Плавная смена фона в зависимости от времени суток */
-            transition: background 2s ease; 
+            /* Плавная смена неонового фона */
+            transition: background 2.5s ease; 
             position: relative;
             overflow-x: hidden;
+            background-color: #030308;
         }
 
-        /* Главный праздничный заголовок */
+        /* Сканирующие линии на заднем фоне в стиле старых мониторов */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 1;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        /* Главный заголовок в стиле Игры / Терминала */
         h1 {
-            font-size: 2.5rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
             margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            color: #fcee0a; /* Фирменный киберпанк желтый */
+            text-shadow: 0 0 10px rgba(252, 238, 10, 0.5), 3px 3px 0px #ff0055;
+            z-index: 2;
         }
 
-        /* Общие стили для блоков с текстом (модалок) */
+        /* Интерфейсные окна (Модалки) */
         .modal {
-            max-height: 0; /* Изначально сжаты и скрыты */
+            max-height: 0;
             opacity: 0;
             overflow: hidden;
-            transform: translateY(-20px);
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 20px;
-            max-width: 500px;
+            transform: translateY(-20px) skewX(-5deg); /* Фирменный скос киберпанка */
+            background: rgba(5, 5, 15, 0.85);
+            border-left: 5px solid #ff0055; /* Розовая неоновая полоса слева */
+            border-right: 2px solid #00f0ff;
+            border-top: 1px solid #00f0ff;
+            border-bottom: 1px solid #00f0ff;
+            max-width: 550px;
             width: 100%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-bottom: 0; /* Пока скрыто, отступа нет */
+            box-shadow: 0 0 25px rgba(255, 0, 85, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            margin-bottom: 0;
+            z-index: 2;
         }
 
-        /* Класс, который плавно раскрывает окно */
         .modal.active {
-            max-height: 800px; /* Достаточная высота для раскрытия */
+            max-height: 800px;
             opacity: 1;
-            transform: translateY(0);
-            padding: 30px;
-            margin-bottom: 30px; /* Создает отступ, чтобы кнопка снизу не прилипала */
+            transform: translateY(0) skewX(-5deg);
+            padding: 35px 30px;
+            margin-bottom: 30px;
         }
 
         .modal h2 {
-            font-size: 1.8rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            color: #00f0ff;
+            text-transform: uppercase;
             margin-bottom: 15px;
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+            letter-spacing: 1px;
         }
 
         .modal p {
             font-size: 1.1rem;
-            line-height: 1.6;
+            line-height: 1.7;
+            color: #e2e8f0;
             white-space: pre-line;
+            text-align: left;
+            border-top: 1px dashed rgba(0, 240, 255, 0.3);
+            padding-top: 15px;
         }
 
-        /* Основная кнопка, которая теперь всегда внизу */
+        /* Центральная Кнопка: ЗАПУСК ИНТЕРФЕЙСА */
         .main-btn {
-            background: linear-gradient(45deg, #ff416c, #ff4b2b);
-            color: white;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            background: #fcee0a;
+            color: #000000;
             border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 50px;
+            padding: 16px 45px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            letter-spacing: 2px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
-            transition: all 0.3s ease;
-            margin-top: 20px; /* Небольшой отступ сверху от заголовка */
+            clip-path: polygon(0 0, 90% 0, 100% 30%, 100% 100%, 10% 100%, 0 70%); /* Срезанные углы */
+            box-shadow: 4px 4px 0px #ff0055;
+            transition: all 0.2s ease;
+            z-index: 2;
+            margin-top: 20px;
         }
 
         .main-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 65, 108, 0.6);
+            background: #ff0055;
+            color: #ffffff;
+            box-shadow: -4px -4px 0px #00f0ff;
+            transform: translateY(-2px);
         }
 
-        /* Кнопка "Мои мысли" в левом нижнем углу */
+        .main-btn:active {
+            transform: translateY(2px);
+            box-shadow: 1px 1px 0px #ff0055;
+        }
+
+        /* Левая нижняя кнопка: МОИ МЫСЛИ // LOG_DATA */
         .thoughts-btn {
-            position: fixed; /* Зафиксирована в углу экрана */
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            position: fixed;
             bottom: 30px;
-            left: -200px; /* Изначально спрятана за левым краем */
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            left: -250px;
+            background: transparent;
+            color: #00f0ff;
+            border: 1px solid #00f0ff;
             padding: 12px 25px;
-            font-size: 1rem;
-            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 1px;
             cursor: pointer;
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 85% 100%, 0 100%);
+            box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.2);
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10;
         }
 
         .thoughts-btn.show {
-            left: 30px; /* Плавно выезжает при клике */
+            left: 30px;
         }
 
         .thoughts-btn:hover {
-            background: rgba(255, 255, 255, 0.4);
-            transform: translateY(-3px);
+            background: rgba(0, 240, 255, 0.1);
+            color: #ffffff;
+            border-color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. Заголовок (в самом верхнем положении) -->
-    <h1>С Днём Рождения! 🎉</h1>
+    <!-- 1. Заголовок -->
+    <h1 id="glitchTitle">CYBER_BDAY // 2026</h1>
 
-    <!-- 2. БЛОК ПОЗДРАВЛЕНИЯ (появится МЕЖДУ заголовком и кнопкой) -->
+    <!-- 2. БЛОК ПОЗДРАВЛЕНИЯ -->
     <div class="modal" id="congratulationsModal">
-        <h2>Дорогой именинник! 🎂</h2>
-        <p>Здесь находится текст вашего главного поздравления. 
-        Пусть каждый день будет наполнен радостью, а все мечты сбываются одна за другой! 
-        Ты невероятный человек, и я очень рад, что ты есть в моей жизни!</p>
+        <h2>[ ИНИЦИАЛИЗАЦИЯ ПОЗДРАВЛЕНИЯ ]</h2>
+        <p>> Подключение установлено...
+        > Загрузка протокола радости: 100%
+        
+        Дорогой именинник! В этой цифровой реальности ты — самый главный и ценный элемент. Пусть твой внутренний процессор никогда не перегревается, сеть будет защищена от невзгод, а каждый новый день открывает новые уровни счастья. С днем рождения! // СИСТЕМА_АКТИВНА</p>
     </div>
 
-    <!-- 3. БЛОК МОИ МЫСЛИ (появится тут же взамен первого) -->
+    <!-- 3. БЛОК МОИ МЫСЛИ -->
     <div class="modal" id="thoughtsModal">
-        <h2>Мои мысли о тебе ✨</h2>
-        <p>МЕСТО ДЛЯ ВАШЕГО ЛИЧНОГО ТЕКСТА.
-        Сюда вы можете вставить любые важные воспоминания, секреты или теплые слова, которые хотите сказать один на один.</p>
+        <h2>[ ЛИЧНЫЙ АРХИВ // МЫСЛИ ]</h2>
+        <p>> Доступ разрешен...
+        > Извлечение зашифрованных данных...
+        
+        МЕСТО ДЛЯ ВАШЕГО ТЕКСТА.
+        Сюда вы можете вставить абсолютно любые свои личные слова, воспоминания или сокровенные мысли в стиле секретных логов.</p>
     </div>
 
-    <!-- 4. Центральная кнопка (теперь строго в самом низу) -->
-    <button class="main-btn" id="controlBtn" onclick="toggleMainModal()">Просмотреть</button>
+    <!-- 4. Центральная кнопка управления -->
+    <button class="main-btn" id="controlBtn" onclick="toggleMainModal()">INITIALIZE // ПРОСМОТРЕТЬ</button>
 
     <!-- Выезжающая кнопка в левом углу -->
-    <button class="thoughts-btn" id="thoughtsBtn" onclick="openThoughtsModal()">Мои мысли 🤍</button>
+    <button class="thoughts-btn" id="thoughtsBtn" onclick="openThoughtsModal()">DATA_LOG // МЫСЛИ</button>
 
     <script>
         const controlBtn = document.getElementById('controlBtn');
@@ -155,61 +207,61 @@
 
         let isModalOpen = false;
 
-        // 1. УМНАЯ СМЕНА ЦВЕТА ФОНА (ПО ВРЕМЕНИ СУТОК)
+        // 1. КИБЕРПАНК СМЕНА НЕОНОВЫХ ЦВЕТОВ (ПО ВРЕМЕНИ СУТОК)
         function updateBackground() {
             const hour = new Date().getHours(); 
             let backgroundStyle = "";
 
             if (hour >= 5 && hour < 11) {
-                backgroundStyle = "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"; // Утро
+                // Утро: Кислотный неоново-оранжевый и фиолетовый (Рассвет в Найт-Сити)
+                backgroundStyle = "radial-gradient(circle, #200b2c 0%, #050510 100%), linear-gradient(180deg, #ff5e62 0%, #050510 70%)";
             } else if (hour >= 11 && hour < 17) {
-                backgroundStyle = "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"; // День
+                // День: Яркий хай-тек синий и глубокий темный узел
+                backgroundStyle = "radial-gradient(circle at center, #002b49 0%, #020208 100%)";
             } else if (hour >= 17 && hour < 22) {
-                backgroundStyle = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"; // Вечер
+                // Вечер: Токсичный пурпур и токсичный зеленый неон
+                backgroundStyle = "radial-gradient(circle at 80% 20%, #4a0e4e 0%, #03030a 100%)";
             } else {
-                backgroundStyle = "linear-gradient(135deg, #0f2027 0%, #203a43 100%)"; // Ночь
+                // Ночь: Абсолютный Глубокий Кибер-Сет (Черный, темно-синий и вспышки ультрафиолета)
+                backgroundStyle = "radial-gradient(circle, #0b091a 0%, #020205 100%)";
             }
             document.body.style.background = backgroundStyle;
+            document.body.style.backgroundBlendMode = "screen";
         }
         updateBackground();
 
-        // 2. КЛИК ПО ЦЕНТРАЛЬНОЙ КНОПКЕ (ПРОСМОТРЕТЬ / ЗАКРЫТЬ)
+        // 2. КЛИК ПО ЦЕНТРАЛЬНОЙ КНОПКЕ
         function toggleMainModal() {
             if (!isModalOpen) {
-                // Плавно открываем окно поздравлений над кнопкой
                 congratsModal.classList.add('active');
                 thoughtsModal.classList.remove('active'); 
                 
-                controlBtn.innerText = "Закрыть";
-                thoughtsBtn.classList.add('show'); // Показываем кнопку "Мои мысли" в углу
+                controlBtn.innerText = "SHUTDOWN // ЗАКРЫТЬ";
+                thoughtsBtn.classList.add('show'); 
                 isModalOpen = true;
 
-                // Взрыв конфетти
-                confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } });
+                // Запуск футуристичного неонового салюта (бирюзовый и розовый цвета)
+                confetti({ 
+                    particleCount: 140, 
+                    spread: 85, 
+                    origin: { y: 0.65 },
+                    colors: ['#00f0ff', '#ff0055', '#fcee0a']
+                });
             } else {
-                // Закрываем окна, всё плавно возвращается в исходное сжатое состояние
                 congratsModal.classList.remove('active');
                 thoughtsModal.classList.remove('active');
                 
-                controlBtn.innerText = "Просмотреть";
+                controlBtn.innerText = "INITIALIZE // ПРОСМОТРЕТЬ";
                 isModalOpen = false;
             }
         }
 
         // 3. КЛИК ПО КНОПКЕ "МОИ МЫСЛИ"
         function openThoughtsModal() {
-            // Закрываем первое окно
             congratsModal.classList.remove('active');
-            
-            // Включаем второе окно на том же месте (над кнопкой)
             thoughtsModal.classList.add('active');
             
-            controlBtn.innerText = "Закрыть";
+            controlBtn.innerText = "SHUTDOWN // ЗАКРЫТЬ";
             isModalOpen = true;
 
-            // Салют сбоку
-            confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0 } });
-        }
-    </script>
-</body>
-</html>
+            // Направленный неоновый взрыв слева
