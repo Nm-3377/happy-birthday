@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SYSTEM_OVERRIDE // HB_DAY</title>
-    <!-- Правильное подключение библиотеки салютов (теперь сайт заработает) -->
+    <!-- Исправленный и работающий скрипт для эффектов конфетти -->
     <script src="https://cloudflare.com"></script>
     
     <style>
@@ -30,7 +30,7 @@
             background-color: #030308;
         }
 
-        /* Полосы сканирования старого монитора */
+        /* Сканирующая сетка ЭЛТ-мониторов */
         body::before {
             content: " ";
             display: block;
@@ -42,7 +42,7 @@
             pointer-events: none;
         }
 
-        /* Заголовок с эффектом кибер-глитча */
+        /* Заголовок Cyberpunk Glitch */
         h1 {
             font-size: 2.2rem;
             font-weight: 900;
@@ -164,15 +164,18 @@
 </head>
 <body>
 
-    <h1>Happy_birthday // 2026</h1>
+    <!-- Скрытый музыкальный узел со стабильным источником Cyberpunk OST -->
+    <audio id="bgMusic" src="https://audio.com" loop></audio>
+
+    <h1>CYBER_BDAY // 2026</h1>
 
     <!-- ОКНО 1: ПОЗДРАВЛЕНИЕ -->
     <div class="modal" id="congratulationsModal">
         <h2>[ ИНИЦИАЛИЗАЦИЯ ПОЗДРАВЛЕНИЯ ]</h2>
         <p>> Подключение установлено...
-        > Загрузка данных: 100%
+        > Загрузка протокола : 100%
         
-        Дорогой именинник! Желаю тебе крепкого здаровья, терпения, стальных нервов, успехов, счастья , любви и верных друзей и подруг. С днем рождения! // СИСТЕМА_АКТИВНА</p>
+        Дорогая Даша! Желаю тебе крепкого здаровья, терпения, стальных нервов, успехов, счастья , любви и верных друзей и подруг. С днем рождения! // СИСТЕМА_АКТИВНА</p>
     </div>
 
     <!-- ОКНО 2: МОИ МЫСЛИ -->
@@ -180,8 +183,10 @@
         <h2>[ ЛИЧНЫЙ АРХИВ // МЫСЛИ ]</h2>
         <p>> Доступ разрешен...
         > Извлечение зашифрованных данных...
+            
         Я конечно не программист но что то да умею это мой первый сайт,
-            я написал его с помощью нейронки. Если есть желание то можешь оценить его оценку можно просто в тг написать.
+            я написал его с помощью нейронки и честно говоря сильно парюсь насчет того понравится тебе такое поздравление или нет если есть желание и он тебе понравился то можешь оценить его. 
+            я честно говоря даже не знаю что тебе дарить плоховато у меня с подарками каки с креативом вцелом вообщем ты прочитала часть моих мыслей при создании этого сайта.
         </p>
     </div>
 
@@ -194,6 +199,7 @@
         const thoughtsBtn = document.getElementById('thoughtsBtn');
         const congratsModal = document.getElementById('congratulationsModal');
         const thoughtsModal = document.getElementById('thoughtsModal');
+        const audio = document.getElementById('bgMusic');
 
         let isModalOpen = false;
 
@@ -223,6 +229,12 @@
                 thoughtsBtn.classList.add('show'); 
                 isModalOpen = true;
 
+                // Попытка запустить музыку после клика
+                if (audio) {
+                    audio.volume = 0.5; // Громкость на 50%, чтобы не напугать именинника
+                    audio.play().catch(e => console.log("Музыка ожидает повторного клика пользователя"));
+                }
+
                 if (window.confetti) {
                     confetti({ 
                         particleCount: 140, 
@@ -237,6 +249,8 @@
                 
                 controlBtn.innerText = "INITIALIZE // ПРОСМОТРЕТЬ";
                 isModalOpen = false;
+                
+                if (audio) { audio.pause(); }
             }
         }
 
@@ -246,6 +260,8 @@
             
             controlBtn.innerText = "SHUTDOWN // ЗАКРЫТЬ";
             isModalOpen = true;
+
+            if (audio) { audio.play().catch(e => {}); }
 
             if (window.confetti) {
                 confetti({
