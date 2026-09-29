@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С Днем Рождения!</title>
+    <!-- Подключаем библиотеку для красивого салюта-конфетти -->
+    <script src="https://jsdelivr.net"></script>
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #ffffff;
+            padding: 20px;
+            /* Плавный переход цвета фона при смене времени суток */
+            transition: background 2s ease; 
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Главный заголовок на странице */
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        /* Основная кнопка управления по центру */
+        .main-btn {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .main-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 65, 108, 0.6);
+        }
+
+        /* Скрытая кнопка в левом нижнем углу */
+        .thoughts-btn {
+            position: absolute;
+            bottom: 30px;
+            left: -200px; /* Изначально спрятана за экраном */
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10;
+        }
+
+        .thoughts-btn.show {
+            left: 30px; /* Плавное появление */
+        }
+
+        .thoughts-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
+        /* Общие стили для всплывающих окон (модалок) */
+        .modal {
+            display: none; /* Изначально скрыты */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            z-index: 5;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .modal.active {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .modal p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            white-space: pre-line; /* Позволяет делать переносы строк в тексте */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Заголовок на сайте -->
+    <h1>С Днём Рождения! 🎉</h1>
+
+    <!-- Центральная кнопка управления -->
+    <button class="main-btn" id="controlBtn" onclick="toggleMainModal()">Просмотреть</button>
+
+    <!-- Скрытая кнопка в левом нижнем углу -->
+    <button class="thoughts-btn" id="thoughtsBtn" onclick="openThoughtsModal()">Мои мысли 🤍</button>
+
+    <!-- ОКНО 1: ПОЗДРАВЛЕНИЕ -->
+    <div class="modal" id="congratulationsModal">
+        <h2>Дорогой именинник! 🎂</h2>
+        <p>Здесь находится текст вашего главного поздравления. 
+        Пусть каждый день будет наполнен радостью, а все мечты сбываются одна за другой! 
+        Ты невероятный человек, и я счастлив(а), что ты есть в моей жизни!</p>
+    </div>
+
+    <!-- ОКНО 2: МОИ МЫСЛИ -->
+    <div class="modal" id="thoughtsModal">
+        <h2>Мои мысли о тебе ✨</h2>
+        <p>МЕСТО ДЛЯ ВАШЕГО ТЕКСТА.
+        Сюда вы можете вставить абсолютно любые слова, воспоминания или сокровенные мысли, которые хотите передать человеку лично.</p>
+    </div>
+
+    <script>
+        const controlBtn = document.getElementById('controlBtn');
+        const thoughtsBtn = document.getElementById('thoughtsBtn');
+        const congratsModal = document.getElementById('congratulationsModal');
+        const thoughtsModal = document.getElementById('thoughtsModal');
+
+        let isModalOpen = false;
+
+        // 1. АВТОМАТИЧЕСКАЯ СМЕНА ФОНА (ПО ВРЕМЕНИ СУТОК)
+        function updateBackground() {
+            const hour = new Date().getHours(); 
+            let backgroundStyle = "";
+
+            if (hour >= 5 && hour < 11) {
+                // Утро: нежный розово-персиковый рассвет
+                backgroundStyle = "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)";
+            } else if (hour >= 11 && hour < 17) {
+                // День: яркое голубое небо
+                backgroundStyle = "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)";
+            } else if (hour >= 17 && hour < 22) {
+                // Вечер: глубокий закатный фиолетовый
+                backgroundStyle = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
+            } else {
+                // Ночь: темный космический синий
+                backgroundStyle = "linear-gradient(135deg, #0f2027 0%, #203a43 100%)";
+            }
+
+            document.body.style.background = backgroundStyle;
+        }
+        updateBackground(); // Запуск при загрузке
+
+        // 2. ЛОГИКА ЦЕНТРАЛЬНОЙ КНОПКИ (ПРОСМОТРЕТЬ / ЗАКРЫТЬ)
+        function toggleMainModal() {
+            if (!isModalOpen) {
+                // ОТКРЫВАЕМ ОКНО ПОЗДРАВЛЕНИЙ
+                congratsModal.classList.add('active');
+                thoughtsModal.classList.remove('active'); // На всякий случай закрываем второе
+                
+                controlBtn.innerText = "Закрыть";
+                thoughtsBtn.classList.add('show'); // Показываем кнопку "Мои мысли"
+                isModalOpen = true;
+
+                // Запускаем праздничный салют!
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            } else {
+                // ЗАКРЫВАЕМ ВСЕ ОКНА
+                congratsModal.classList.remove('active');
+                thoughtsModal.classList.remove('active');
+                
+                controlBtn.innerText = "Просмотреть";
+                // Кнопку "Мои мысли" оставляем видимой, раз её уже открыли
+                isModalOpen = false;
+            }
+        }
+
+        // 3. ЛОГИКА КНОПКИ "МОИ МЫСЛИ"
+        function openThoughtsModal() {
+            // Закрываем окно поздравлений
+            congratsModal.classList.remove('active');
+            
+            // Открываем окно с мыслями
+            thoughtsModal.classList.add('active');
+            
+            // Меняем текст центральной кнопки на "Закрыть", так как окно всё еще открыто
+            controlBtn.innerText = "Закрыть";
+            isModalOpen = true;
+
+            // Маленький дополнительный спецэффект конфетти
+            confetti({ particleCount: 40, angle: 60, spread: 55, origin: { x: 0 } });
+        }
+    </script>
+</body>
+</html>
