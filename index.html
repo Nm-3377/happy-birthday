@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>С Днем Рождения!</title>
-    <!-- Подключаем библиотеку для красивого салюта-конфетти -->
+    <!-- Библиотека для праздничного салюта-конфетти -->
     <script src="https://jsdelivr.net"></script>
     
     <style>
@@ -19,32 +19,63 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: center; /* Центрирует всё содержимое по вертикали */
             align-items: center;
             text-align: center;
             color: #ffffff;
-            padding: 20px;
-            /* Плавный переход цвета фона при смене времени суток */
+            padding: 40px 20px;
+            /* Плавная смена фона в зависимости от времени суток */
             transition: background 2s ease; 
-            overflow: hidden;
             position: relative;
+            overflow-x: hidden;
         }
 
-        /* Главный заголовок на странице */
+        /* Главный праздничный заголовок */
         h1 {
             font-size: 2.5rem;
             margin-bottom: 30px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-            animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
+        /* Общие стили для блоков с текстом (модалок) */
+        .modal {
+            max-height: 0; /* Изначально сжаты и скрыты */
+            opacity: 0;
+            overflow: hidden;
+            transform: translateY(-20px);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 0; /* Пока скрыто, отступа нет */
         }
 
-        /* Основная кнопка управления по центру */
+        /* Класс, который плавно раскрывает окно над кнопкой */
+        .modal.active {
+            max-height: 800px; /* Достаточная высота для раскрытия */
+            opacity: 1;
+            transform: translateY(0);
+            padding: 30px;
+            margin-bottom: 30px; /* Создает отступ и плавно толкает кнопку вниз */
+        }
+
+        .modal h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .modal p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        /* Основная кнопка, которая будет опускаться вниз */
         .main-btn {
             background: linear-gradient(45deg, #ff416c, #ff4b2b);
             color: white;
@@ -56,7 +87,6 @@
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
             transition: all 0.3s ease;
-            z-index: 10;
         }
 
         .main-btn:hover {
@@ -64,11 +94,11 @@
             box-shadow: 0 8px 25px rgba(255, 65, 108, 0.6);
         }
 
-        /* Скрытая кнопка в левом нижнем углу */
+        /* Кнопка "Мои мысли" в левом нижнем углу */
         .thoughts-btn {
-            position: absolute;
+            position: fixed; /* Зафиксирована в углу экрана */
             bottom: 30px;
-            left: -200px; /* Изначально спрятана за экраном */
+            left: -200px; /* Изначально спрятана за левым краем */
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(5px);
             color: white;
@@ -78,82 +108,43 @@
             border-radius: 30px;
             cursor: pointer;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 10;
         }
 
         .thoughts-btn.show {
-            left: 30px; /* Плавное появление */
+            left: 30px; /* Плавно выезжает при клике */
         }
 
         .thoughts-btn:hover {
             background: rgba(255, 255, 255, 0.4);
             transform: translateY(-3px);
         }
-
-        /* Общие стили для всплывающих окон (модалок) */
-        .modal {
-            display: none; /* Изначально скрыты */
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 40px 30px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            z-index: 5;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .modal.active {
-            display: block;
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .modal h2 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-
-        .modal p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            white-space: pre-line; /* Позволяет делать переносы строк в тексте */
-        }
     </style>
 </head>
 <body>
 
-    <!-- Заголовок на сайте -->
+    <!-- Заголовок -->
     <h1>С Днём Рождения! 🎉</h1>
 
-    <!-- Центральная кнопка управления -->
-    <button class="main-btn" id="controlBtn" onclick="toggleMainModal()">Просмотреть</button>
-
-    <!-- Скрытая кнопка в левом нижнем углу -->
-    <button class="thoughts-btn" id="thoughtsBtn" onclick="openThoughtsModal()">Мои мысли 🤍</button>
-
-    <!-- ОКНО 1: ПОЗДРАВЛЕНИЕ -->
+    <!-- БЛОК 1: ПОЗДРАВЛЕНИЕ (Появится НАД кнопкой) -->
     <div class="modal" id="congratulationsModal">
         <h2>Дорогой именинник! 🎂</h2>
         <p>Здесь находится текст вашего главного поздравления. 
         Пусть каждый день будет наполнен радостью, а все мечты сбываются одна за другой! 
-        Ты невероятный человек, и я счастлив(а), что ты есть в моей жизни!</p>
+        Ты невероятный человек, и я очень рад, что ты есть в моей жизни!</p>
     </div>
 
-    <!-- ОКНО 2: МОИ МЫСЛИ -->
+    <!-- БЛОК 2: МОИ МЫСЛИ (Тоже появится НАД кнопкой взамен первого) -->
     <div class="modal" id="thoughtsModal">
         <h2>Мои мысли о тебе ✨</h2>
-        <p>МЕСТО ДЛЯ ВАШЕГО ТЕКСТА.
-        Сюда вы можете вставить абсолютно любые слова, воспоминания или сокровенные мысли, которые хотите передать человеку лично.</p>
+        <p>МЕСТО ДЛЯ ВАШЕГО ЛИЧНОГО ТЕКСТА.
+        Сюда вы можете вставить любые важные воспоминания, секреты или теплые слова, которые хотите сказать один на один.</p>
     </div>
+
+    <!-- Центральная кнопка (автоматически уходит вниз при открытии окон) -->
+    <button class="main-btn" id="controlBtn" onclick="toggleMainModal()">Просмотреть</button>
+
+    <!-- Выезжающая кнопка в левом углу -->
+    <button class="thoughts-btn" id="thoughtsBtn" onclick="openThoughtsModal()">Мои мысли 🤍</button>
 
     <script>
         const controlBtn = document.getElementById('controlBtn');
@@ -163,67 +154,60 @@
 
         let isModalOpen = false;
 
-        // 1. АВТОМАТИЧЕСКАЯ СМЕНА ФОНА (ПО ВРЕМЕНИ СУТОК)
+        // 1. УМНАЯ СМЕНА ЦВЕТА ФОНА (ПО ВРЕМЕНИ СУТОК)
         function updateBackground() {
             const hour = new Date().getHours(); 
             let backgroundStyle = "";
 
             if (hour >= 5 && hour < 11) {
-                // Утро: нежный розово-персиковый рассвет
-                backgroundStyle = "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)";
+                backgroundStyle = "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"; // Утро
             } else if (hour >= 11 && hour < 17) {
-                // День: яркое голубое небо
-                backgroundStyle = "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)";
+                backgroundStyle = "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"; // День
             } else if (hour >= 17 && hour < 22) {
-                // Вечер: глубокий закатный фиолетовый
-                backgroundStyle = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
+                backgroundStyle = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"; // Вечер
             } else {
-                // Ночь: темный космический синий
-                backgroundStyle = "linear-gradient(135deg, #0f2027 0%, #203a43 100%)";
+                backgroundStyle = "linear-gradient(135deg, #0f2027 0%, #203a43 100%)"; // Ночь
             }
-
             document.body.style.background = backgroundStyle;
         }
-        updateBackground(); // Запуск при загрузке
+        updateBackground();
 
-        // 2. ЛОГИКА ЦЕНТРАЛЬНОЙ КНОПКИ (ПРОСМОТРЕТЬ / ЗАКРЫТЬ)
+        // 2. КЛИК ПО ЦЕНТРАЛЬНОЙ КНОПКЕ (ПРОСМОТРЕТЬ / ЗАКРЫТЬ)
         function toggleMainModal() {
             if (!isModalOpen) {
-                // ОТКРЫВАЕМ ОКНО ПОЗДРАВЛЕНИЙ
+                // Плавно открываем окно поздравлений (оно расталкивает страницу и жмет кнопку вниз)
                 congratsModal.classList.add('active');
-                thoughtsModal.classList.remove('active'); // На всякий случай закрываем второе
+                thoughtsModal.classList.remove('active'); 
                 
                 controlBtn.innerText = "Закрыть";
-                thoughtsBtn.classList.add('show'); // Показываем кнопку "Мои мысли"
+                thoughtsBtn.classList.add('show'); // Показываем кнопку "Мои мысли" в углу
                 isModalOpen = true;
 
-                // Запускаем праздничный салют!
-                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                // Взрыв конфетти
+                confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } });
             } else {
-                // ЗАКРЫВАЕМ ВСЕ ОКНА
+                // Закрываем всё, кнопка возвращается наверх в центр
                 congratsModal.classList.remove('active');
                 thoughtsModal.classList.remove('active');
                 
                 controlBtn.innerText = "Просмотреть";
-                // Кнопку "Мои мысли" оставляем видимой, раз её уже открыли
                 isModalOpen = false;
             }
         }
 
-        // 3. ЛОГИКА КНОПКИ "МОИ МЫСЛИ"
+        // 3. КЛИК ПО КНОПКЕ "МОИ МЫСЛИ"
         function openThoughtsModal() {
-            // Закрываем окно поздравлений
+            // Закрываем первое окно
             congratsModal.classList.remove('active');
             
-            // Открываем окно с мыслями
+            // Включаем второе окно (оно также останется над кнопкой и прижмет её к низу экрана)
             thoughtsModal.classList.add('active');
             
-            // Меняем текст центральной кнопки на "Закрыть", так как окно всё еще открыто
             controlBtn.innerText = "Закрыть";
             isModalOpen = true;
 
-            // Маленький дополнительный спецэффект конфетти
-            confetti({ particleCount: 40, angle: 60, spread: 55, origin: { x: 0 } });
+            // Салют сбоку
+            confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0 } });
         }
     </script>
 </body>
