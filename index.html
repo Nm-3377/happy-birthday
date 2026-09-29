@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SYSTEM_OVERRIDE // HB_DAY</title>
-    <!-- Подключаем киберпанк-шрифт из Google Fonts -->
-    <link href="https://googleapis.com" rel="stylesheet">
-    <!-- Библиотека для праздничного салюта-конфетти -->
-    <script src="https://jsdelivr.net"></script>
+    <!-- Правильное подключение библиотеки салютов (теперь сайт заработает) -->
+    <script src="https://cloudflare.com"></script>
     
     <style>
         * {
@@ -17,62 +15,70 @@
         }
 
         body {
-            font-family: 'Play', sans-serif;
+            font-family: 'Courier New', Courier, monospace, sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: #00f0ff; /* Фирменный киберпанк бирюзовый */
+            color: #00f0ff; 
             padding: 40px 20px;
-            /* Плавная смена неонового фона */
             transition: background 2.5s ease; 
             position: relative;
             overflow-x: hidden;
             background-color: #030308;
         }
 
-        /* Сканирующие линии на заднем фоне в стиле старых мониторов */
+        /* Полосы сканирования старого монитора */
         body::before {
             content: " ";
             display: block;
             position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
             z-index: 1;
-            background-size: 100% 4px, 6px 100%;
+            background-size: 100% 4px;
             pointer-events: none;
         }
 
-        /* Главный заголовок в стиле Игры / Терминала */
+        /* Заголовок с эффектом кибер-глитча */
         h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.8rem;
+            font-size: 2.2rem;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 3px;
             margin-bottom: 30px;
-            color: #fcee0a; /* Фирменный киберпанк желтый */
+            color: #fcee0a; 
+            position: relative;
             text-shadow: 0 0 10px rgba(252, 238, 10, 0.5), 3px 3px 0px #ff0055;
             z-index: 2;
+            animation: glitch 3s infinite;
         }
 
-        /* Интерфейсные окна (Модалки) */
+        @keyframes glitch {
+            0% { text-shadow: 3px 3px 0px #ff0055, -3px -3px 0px #00f0ff; }
+            49% { text-shadow: 3px 3px 0px #ff0055, -3px -3px 0px #00f0ff; }
+            50% { text-shadow: -5px 2px 0px #ff0055, 5px -2px 0px #00f0ff; transform: skewX(-15deg); }
+            52% { text-shadow: 3px -3px 0px #ff0055, -3px 3px 0px #00f0ff; transform: skewX(15deg); }
+            55% { text-shadow: 3px 3px 0px #ff0055, -3px -3px 0px #00f0ff; transform: skewX(0deg); }
+            100% { text-shadow: 3px 3px 0px #ff0055, -3px -3px 0px #00f0ff; }
+        }
+
         .modal {
             max-height: 0;
             opacity: 0;
             overflow: hidden;
-            transform: translateY(-20px) skewX(-5deg); /* Фирменный скос киберпанка */
-            background: rgba(5, 5, 15, 0.85);
-            border-left: 5px solid #ff0055; /* Розовая неоновая полоса слева */
+            transform: translateY(-20px) skewX(-4deg); 
+            background: rgba(5, 5, 15, 0.95);
+            border-left: 5px solid #ff0055; 
             border-right: 2px solid #00f0ff;
             border-top: 1px solid #00f0ff;
             border-bottom: 1px solid #00f0ff;
             max-width: 550px;
             width: 100%;
-            box-shadow: 0 0 25px rgba(255, 0, 85, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.1);
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            box-shadow: 0 0 25px rgba(255, 0, 85, 0.3);
+            transition: all 0.4s ease-out;
             margin-bottom: 0;
             z-index: 2;
         }
@@ -80,23 +86,21 @@
         .modal.active {
             max-height: 800px;
             opacity: 1;
-            transform: translateY(0) skewX(-5deg);
+            transform: translateY(0) skewX(-4deg);
             padding: 35px 30px;
             margin-bottom: 30px;
         }
 
         .modal h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             color: #00f0ff;
             text-transform: uppercase;
             margin-bottom: 15px;
             text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
-            letter-spacing: 1px;
         }
 
         .modal p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             line-height: 1.7;
             color: #e2e8f0;
             white-space: pre-line;
@@ -105,9 +109,8 @@
             padding-top: 15px;
         }
 
-        /* Центральная Кнопка: ЗАПУСК ИНТЕРФЕЙСА */
         .main-btn {
-            font-family: 'Orbitron', sans-serif;
+            font-family: inherit;
             text-transform: uppercase;
             background: #fcee0a;
             color: #000000;
@@ -117,7 +120,7 @@
             font-weight: 900;
             letter-spacing: 2px;
             cursor: pointer;
-            clip-path: polygon(0 0, 90% 0, 100% 30%, 100% 100%, 10% 100%, 0 70%); /* Срезанные углы */
+            clip-path: polygon(0 0, 90% 0, 100% 30%, 100% 100%, 10% 100%, 0 70%); 
             box-shadow: 4px 4px 0px #ff0055;
             transition: all 0.2s ease;
             z-index: 2;
@@ -128,22 +131,15 @@
             background: #ff0055;
             color: #ffffff;
             box-shadow: -4px -4px 0px #00f0ff;
-            transform: translateY(-2px);
         }
 
-        .main-btn:active {
-            transform: translateY(2px);
-            box-shadow: 1px 1px 0px #ff0055;
-        }
-
-        /* Левая нижняя кнопка: МОИ МЫСЛИ // LOG_DATA */
         .thoughts-btn {
-            font-family: 'Orbitron', sans-serif;
+            font-family: inherit;
             text-transform: uppercase;
             position: fixed;
             bottom: 30px;
             left: -250px;
-            background: transparent;
+            background: #030308;
             color: #00f0ff;
             border: 1px solid #00f0ff;
             padding: 12px 25px;
@@ -152,7 +148,6 @@
             letter-spacing: 1px;
             cursor: pointer;
             clip-path: polygon(0 0, 100% 0, 100% 70%, 85% 100%, 0 100%);
-            box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.2);
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 10;
         }
@@ -163,18 +158,15 @@
 
         .thoughts-btn:hover {
             background: rgba(0, 240, 255, 0.1);
-            color: #ffffff;
-            border-color: #ffffff;
             box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. Заголовок -->
-    <h1 id="glitchTitle">CYBER_BDAY // 2026</h1>
+    <h1>CYBER_BDAY // 2026</h1>
 
-    <!-- 2. БЛОК ПОЗДРАВЛЕНИЯ -->
+    <!-- ОКНО 1: ПОЗДРАВЛЕНИЕ -->
     <div class="modal" id="congratulationsModal">
         <h2>[ ИНИЦИАЛИЗАЦИЯ ПОЗДРАВЛЕНИЯ ]</h2>
         <p>> Подключение установлено...
@@ -183,20 +175,18 @@
         Дорогой именинник! В этой цифровой реальности ты — самый главный и ценный элемент. Пусть твой внутренний процессор никогда не перегревается, сеть будет защищена от невзгод, а каждый новый день открывает новые уровни счастья. С днем рождения! // СИСТЕМА_АКТИВНА</p>
     </div>
 
-    <!-- 3. БЛОК МОИ МЫСЛИ -->
+    <!-- ОКНО 2: МОИ МЫСЛИ -->
     <div class="modal" id="thoughtsModal">
         <h2>[ ЛИЧНЫЙ АРХИВ // МЫСЛИ ]</h2>
         <p>> Доступ разрешен...
         > Извлечение зашифрованных данных...
         
         МЕСТО ДЛЯ ВАШЕГО ТЕКСТА.
-        Сюда вы можете вставить абсолютно любые свои личные слова, воспоминания или сокровенные мысли в стиле секретных логов.</p>
+        Сюда вы можете вставить любые свои личные слова, воспоминания или сокровенные мысли в стиле секретных логов.</p>
     </div>
 
-    <!-- 4. Центральная кнопка управления -->
     <button class="main-btn" id="controlBtn" onclick="toggleMainModal()">INITIALIZE // ПРОСМОТРЕТЬ</button>
 
-    <!-- Выезжающая кнопка в левом углу -->
     <button class="thoughts-btn" id="thoughtsBtn" onclick="openThoughtsModal()">DATA_LOG // МЫСЛИ</button>
 
     <script>
@@ -207,30 +197,23 @@
 
         let isModalOpen = false;
 
-        // 1. КИБЕРПАНК СМЕНА НЕОНОВЫХ ЦВЕТОВ (ПО ВРЕМЕНИ СУТОК)
         function updateBackground() {
             const hour = new Date().getHours(); 
             let backgroundStyle = "";
 
             if (hour >= 5 && hour < 11) {
-                // Утро: Кислотный неоново-оранжевый и фиолетовый (Рассвет в Найт-Сити)
-                backgroundStyle = "radial-gradient(circle, #200b2c 0%, #050510 100%), linear-gradient(180deg, #ff5e62 0%, #050510 70%)";
+                backgroundStyle = "radial-gradient(circle, #200b2c 0%, #050510 100%)";
             } else if (hour >= 11 && hour < 17) {
-                // День: Яркий хай-тек синий и глубокий темный узел
                 backgroundStyle = "radial-gradient(circle at center, #002b49 0%, #020208 100%)";
             } else if (hour >= 17 && hour < 22) {
-                // Вечер: Токсичный пурпур и токсичный зеленый неон
                 backgroundStyle = "radial-gradient(circle at 80% 20%, #4a0e4e 0%, #03030a 100%)";
             } else {
-                // Ночь: Абсолютный Глубокий Кибер-Сет (Черный, темно-синий и вспышки ультрафиолета)
                 backgroundStyle = "radial-gradient(circle, #0b091a 0%, #020205 100%)";
             }
             document.body.style.background = backgroundStyle;
-            document.body.style.backgroundBlendMode = "screen";
         }
         updateBackground();
 
-        // 2. КЛИК ПО ЦЕНТРАЛЬНОЙ КНОПКЕ
         function toggleMainModal() {
             if (!isModalOpen) {
                 congratsModal.classList.add('active');
@@ -240,13 +223,14 @@
                 thoughtsBtn.classList.add('show'); 
                 isModalOpen = true;
 
-                // Запуск футуристичного неонового салюта (бирюзовый и розовый цвета)
-                confetti({ 
-                    particleCount: 140, 
-                    spread: 85, 
-                    origin: { y: 0.65 },
-                    colors: ['#00f0ff', '#ff0055', '#fcee0a']
-                });
+                if (window.confetti) {
+                    confetti({ 
+                        particleCount: 140, 
+                        spread: 85, 
+                        origin: { y: 0.65 },
+                        colors: ['#00f0ff', '#ff0055', '#fcee0a']
+                    });
+                }
             } else {
                 congratsModal.classList.remove('active');
                 thoughtsModal.classList.remove('active');
@@ -256,7 +240,6 @@
             }
         }
 
-        // 3. КЛИК ПО КНОПКЕ "МОИ МЫСЛИ"
         function openThoughtsModal() {
             congratsModal.classList.remove('active');
             thoughtsModal.classList.add('active');
@@ -264,4 +247,16 @@
             controlBtn.innerText = "SHUTDOWN // ЗАКРЫТЬ";
             isModalOpen = true;
 
-            // Направленный неоновый взрыв слева
+            if (window.confetti) {
+                confetti({
+                    particleCount: 60,
+                    angle: 60,
+                    spread: 60,
+                    origin: { x: 0 },
+                    colors: ['#00f0ff', '#ff0055']
+                });
+            }
+        }
+    </script>
+</body>
+</html>
