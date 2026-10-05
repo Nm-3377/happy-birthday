@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYSTEM_OVERRIDE // HB_DAY</title>
-    <!-- Подключение библиотеки салютов с быстрого CDN-сервера -->
+    <title>МЕТРО 2033 // ПОСТ_ОБЪЕКТ</title>
+    <!-- Подключаем библиотеку эффектов для создания искр проводки -->
     <script src="https://cloudflare.com"></script>
     
     <style>
@@ -15,251 +15,188 @@
         }
 
         body {
-            font-family: 'Courier New', Courier, monospace, sans-serif;
+            /* Шрифты, создающие ощущение старой печатной машинки или военных документов */
+            font-family: 'Courier New', Courier, monospace;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: #00f0ff; 
+            color: #d4c5a1; /* Цвет старого армейского брезента или запыленного металла */
             padding: 40px 20px;
-            transition: background 2.5s ease; 
+            transition: background 3s ease; 
             position: relative;
             overflow-x: hidden;
-            background-color: #030308;
+            background-color: #0d0d0d;
         }
 
-        /* Полосы сканирования ЭЛТ-мониторов */
+        /* Эффект темноты туннелей и мерцания старой лампы */
         body::before {
             content: " ";
             display: block;
             position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
+            background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.8) 100%),
+                        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%);
             z-index: 1;
-            background-size: 100% 4px;
+            background-size: 100% 100%, 100% 6px;
             pointer-events: none;
         }
 
-        /* Заголовок с эффектом кибер-глитча */
+        /* Заголовок: Военный трафарет на стали */
         h1 {
             font-size: 2.2rem;
-            font-weight: 900;
+            font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             margin-bottom: 30px;
-            color: #fcee0a; 
-            position: relative;
-            text-shadow: 0 0 10px rgba(252, 238, 10, 0.5), 3px 3px 0px #ff0055;
+            color: #7a1f1d; /* Ржаво-красный цвет */
+            text-shadow: 1px 1px 0px #000, 0 0 10px rgba(122, 31, 29, 0.4);
             z-index: 2;
-            animation: glitch 3s infinite;
+            border: 2px dashed #423b2c;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.5);
         }
 
-        @keyframes glitch {
-            0% { text-shadow: 3px 3px 0px #ff0055, -3px -3px 0px #00f0ff; }
-            49% { text-shadow: 3px 3px 0px #ff0055, -3px -3px 0px #00f0ff; }
-            50% { text-shadow: -5px 2px 0px #ff0055, 5px -2px 0px #00f0ff; transform: skewX(-15deg); }
-            52% { text-shadow: 3px -3px 0px #ff0055, -3px 3px 0px #00f0ff; transform: skewX(15deg); }
-            55% { text-shadow: 3px 3px 0px #ff0055, -3px -3px 0px #00f0ff; transform: skewX(0deg); }
-            100% { text-shadow: 3px 3px 0px #ff0055, -3px -3px 0px #00f0ff; }
-        }
-
+        /* Окно-дневник (раскрывается над кнопкой) */
         .modal {
             max-height: 0;
             opacity: 0;
             overflow: hidden;
-            transform: translateY(-20px) skewX(-4deg); 
-            background: rgba(5, 5, 15, 0.95);
-            border-left: 5px solid #ff0055; 
-            border-right: 2px solid #00f0ff;
-            border-top: 1px solid #00f0ff;
-            border-bottom: 1px solid #00f0ff;
+            /* Стилизация под старую пожелтевшую страницу из тетради Артема */
+            background: #171511; 
+            border: 2px solid #423b2c;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(122, 31, 29, 0.1);
             max-width: 550px;
             width: 100%;
-            box-shadow: 0 0 25px rgba(255, 0, 85, 0.3);
-            transition: all 0.4s ease-out;
+            transition: all 0.5s ease-in-out;
             margin-bottom: 0;
             z-index: 2;
         }
 
+        /* Активное состояние страницы дневника */
         .modal.active {
             max-height: 800px;
             opacity: 1;
-            transform: translateY(0) skewX(-4deg);
             padding: 35px 30px;
             margin-bottom: 30px;
         }
 
         .modal h2 {
-            font-size: 1.4rem;
-            color: #00f0ff;
+            font-size: 1.3rem;
+            color: #a3906b;
             text-transform: uppercase;
-            margin-bottom: 15px;
-            text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #423b2c;
+            padding-bottom: 10px;
         }
 
         .modal p {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: #e2e8f0;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #c4b591;
             white-space: pre-line;
             text-align: left;
-            border-top: 1px dashed rgba(0, 240, 255, 0.3);
-            padding-top: 15px;
         }
 
+        /* Суровая кнопка-рычаг гермозатвора */
         .main-btn {
             font-family: inherit;
             text-transform: uppercase;
-            background: #fcee0a;
-            color: #000000;
-            border: none;
+            background: #3e4235; /* Защитный зеленый / хаки */
+            color: #d4c5a1;
+            border: 2px solid #5a614e;
             padding: 16px 45px;
             font-size: 1.1rem;
-            font-weight: 900;
+            font-weight: bold;
             letter-spacing: 2px;
             cursor: pointer;
-            clip-path: polygon(0 0, 90% 0, 100% 30%, 100% 100%, 10% 100%, 0 70%); 
-            box-shadow: 4px 4px 0px #ff0055;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6), inset 0 1px 3px rgba(255,255,255,0.1);
             transition: all 0.2s ease;
             z-index: 2;
             margin-top: 20px;
         }
 
         .main-btn:hover {
-            background: #ff0055;
+            background: #7a1f1d; /* Загорается красным при наведении */
             color: #ffffff;
-            box-shadow: -4px -4px 0px #00f0ff;
+            border-color: #a82c2a;
+            box-shadow: 0 0 15px rgba(122, 31, 29, 0.6);
         }
 
-        .thoughts-btn {
-            font-family: inherit;
-            text-transform: uppercase;
-            position: fixed;
-            bottom: 30px;
-            left: -250px;
-            background: #030308;
-            color: #00f0ff;
-            border: 1px solid #00f0ff;
-            padding: 12px 25px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            cursor: pointer;
-            clip-path: polygon(0 0, 100% 0, 100% 70%, 85% 100%, 0 100%);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 10;
-        }
-
-        .thoughts-btn.show {
-            left: 30px;
-        }
-
-        .thoughts-btn:hover {
-            background: rgba(0, 240, 255, 0.1);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+        .main-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
         }
     </style>
 </head>
 <body>
 
-    <h1>CYBER_BDAY // 2026</h1>
+    <!-- Главный шифр-заголовок -->
+    <h1>СТАНЦИЯ_ВДНХ // БУНКЕР-2026</h1>
 
-    <!-- ОКНО 1: ПОЗДРАВЛЕНИЕ -->
+    <!-- ОКНО С ПОЗДРАВЛЕНИЕМ (Появится над кнопкой) -->
     <div class="modal" id="congratulationsModal">
-        <h2>[ ИНИЦИАЛИЗАЦИЯ ПОЗДРАВЛЕНИЯ ]</h2>
-        <p>> Подключение установлено...
-        > Загрузка: 100%
+        <h2>[ ЗАПИСЬ ИЗ ДНЕВНИКА ВЫЖИВШЕГО ]</h2>
+        <p>> ...Сквозь помехи радиостанций и мрак бесконечных туннелей этот сигнал пробился к тебе.
         
-        Дорогая Даша ! Желаю тебе крепкого здаровья, терпения, стальных нервов, успехов, счастья , любви и верных друзей и подруг. С днем рождения! // СИСТЕМА_АКТИВНА</p>
+        Дорогой именинник! В мире, где каждый шаг — это испытание, ты остаешься человеком с самым надежным фильтром в противогазе и самым добрым сердцем. Желаю, чтобы твоя жизненная батарейка никогда не садилась, патроны-валюта всегда были в достатке, а на твоем пути попадались только верные сталкеры. С днем рождения! За твою безопасность! // КОНЕЦ СВЯЗИ</p>
     </div>
 
-    <!-- ОКНО 2: МОИ МЫСЛИ -->
-    <div class="modal" id="thoughtsModal">
-        <h2>[ ЛИЧНЫЙ АРХИВ // МЫСЛИ ]</h2>
-        <p>> Доступ разрешен...
-        > Извлечение зашифрованных данных...
-            Я честно вообще не знал что можно тебе подарить на др у меня с подарками как и с креативом в целом плоховато.
-            Да и моего бюджета хватит либо на шоколадку либо на цветок какой нибудь один.
-            Я даже не знаю почему я вообще вот это хрень добавил с мыслями наверное хотел чтоб ты знала что я думал когда создавал этот сайт и кстати это мой первый сайт 
-            я писал его с помощью нейронки.
-            Этот раздел я сделал когда твою любимую песню слушал мне она понравилась.
-            И последнее что я хотел написать наверное будет то что я очень часто туплю в наших диалогах особенно когда не могу найти темы для разговора.
-            (мне почему то пиздец стремно писать эту последнюю строчку)                  last update 03.10.26 23:44
-</p>
-    </div>
-
-    <button class="main-btn" id="controlBtn" onclick="toggleMainModal()">INITIALIZE // ПРОСМОТРЕТЬ</button>
-
-    <button class="thoughts-btn" id="thoughtsBtn" onclick="openThoughtsModal()">DATA_LOG // МЫСЛИ</button>
+    <!-- Тяжелая кнопка в самом низу страницы -->
+    <button class="main-btn" id="controlBtn" onclick="toggleMainModal()">ОТКРЫТЬ ГЕРМОЗАТВОР</button>
 
     <script>
         const controlBtn = document.getElementById('controlBtn');
-        const thoughtsBtn = document.getElementById('thoughtsBtn');
         const congratsModal = document.getElementById('congratulationsModal');
-        const thoughtsModal = document.getElementById('thoughtsModal');
-
         let isModalOpen = false;
 
+        // 1. АТМОСФЕРНОЕ ОСВЕЩЕНИЕ СТАНЦИИ (ПО ВРЕМЕНИ СУТОК)
         function updateBackground() {
             const hour = new Date().getHours(); 
             let backgroundStyle = "";
 
             if (hour >= 5 && hour < 11) {
-                backgroundStyle = "radial-gradient(circle, #200b2c 0%, #050510 100%)";
+                // Утро: Тусклый желтоватый свет дизелей
+                backgroundStyle = "radial-gradient(circle at center, #24211a 0%, #0a0a08 100%)";
             } else if (hour >= 11 && hour < 17) {
-                backgroundStyle = "radial-gradient(circle at center, #002b49 0%, #020208 100%)";
+                // День: Относительно стабильный серо-зеленый свет фильтров
+                backgroundStyle = "radial-gradient(circle at center, #191f1a 0%, #070807 100%)";
             } else if (hour >= 17 && hour < 22) {
-                backgroundStyle = "radial-gradient(circle at 80% 20%, #4a0e4e 0%, #03030a 100%)";
+                // Вечер: Глубокий ржаво-коричневый закат подземки
+                backgroundStyle = "radial-gradient(circle at center, #211612 0%, #080504 100%)";
             } else {
-                backgroundStyle = "radial-gradient(circle, #0b091a 0%, #020205 100%)";
+                // Ночь: Тревожный красный свет аварийных ламп
+                backgroundStyle = "radial-gradient(circle at center, #2b0b0b 0%, #080202 100%)";
             }
             document.body.style.background = backgroundStyle;
         }
         updateBackground();
 
+        // 2. ЛОГИКА СРАБАТЫВАНИЯ РЫЧАГА
         function toggleMainModal() {
             if (!isModalOpen) {
+                // Плавно раскрываем дневник над кнопкой
                 congratsModal.classList.add('active');
-                thoughtsModal.classList.remove('active'); 
-                
-                controlBtn.innerText = "SHUTDOWN // ЗАКРЫТЬ";
-                thoughtsBtn.classList.add('show'); 
+                controlBtn.innerText = "ЗАКРЫТЬ ГЕРМОЗАТВОР";
                 isModalOpen = true;
 
+                // Вместо салюта — «искры из проводки» (огненные, желтые и белые вспышки)
                 if (window.confetti) {
                     confetti({ 
-                        particleCount: 140, 
-                        spread: 85, 
-                        origin: { y: 0.65 },
-                        colors: ['#00f0ff', '#ff0055', '#fcee0a']
+                        particleCount: 100, 
+                        spread: 60, 
+                        origin: { y: 0.7 },
+                        colors: ['#ff5500', '#ffaa00', '#ffffff', '#555555']
                     });
                 }
             } else {
+                // Сворачиваем дневник обратно, кнопка поднимается
                 congratsModal.classList.remove('active');
-                thoughtsModal.classList.remove('active');
-                
-                controlBtn.innerText = "INITIALIZE // ПРОСМОТРЕТЬ";
+                controlBtn.innerText = "ОТКРЫТЬ ГЕРМОЗАТВОР";
                 isModalOpen = false;
-            }
-        }
-
-        function openThoughtsModal() {
-            congratsModal.classList.remove('active');
-            thoughtsModal.classList.add('active');
-            
-            controlBtn.innerText = "SHUTDOWN // ЗАКРЫТЬ";
-            isModalOpen = true;
-
-            if (window.confetti) {
-                confetti({
-                    particleCount: 60,
-                    angle: 60,
-                    spread: 60,
-                    origin: { x: 0 },
-                    colors: ['#00f0ff', '#ff0055']
-                });
             }
         }
     </script>
