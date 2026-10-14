@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>МЕТРО 2033 // ПОСТ_ОБЪЕКТ</title>
-    <!-- Подключаем библиотеку эффектов для создания искр проводки -->
+    <title>Москва // Праздничный Сигнал</title>
+    <!-- Библиотека для праздничного столичного салюта -->
     <script src="https://cloudflare.com"></script>
     
     <style>
@@ -15,187 +15,180 @@
         }
 
         body {
-            /* Шрифты, создающие ощущение старой печатной машинки или военных документов */
-            font-family: 'Courier New', Courier, monospace;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: #d4c5a1; /* Цвет старого армейского брезента или запыленного металла */
+            color: #ffffff;
             padding: 40px 20px;
+            /* Плавные переливы московского неба */
             transition: background 3s ease; 
             position: relative;
             overflow-x: hidden;
-            background-color: #0d0d0d;
+            background-color: #0b0f19;
         }
 
-        /* Эффект темноты туннелей и мерцания старой лампы */
+        /* Элегантное размытие фона для глубины */
         body::before {
             content: " ";
             display: block;
             position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.8) 100%),
-                        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%);
+            background: radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.4) 100%);
             z-index: 1;
-            background-size: 100% 100%, 100% 6px;
             pointer-events: none;
         }
 
-        /* Заголовок: Военный трафарет на стали */
+        /* Заголовок в стиле современных московских вывесок */
         h1 {
-            font-size: 2.2rem;
-            font-weight: bold;
+            font-size: 2.4rem;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 2px;
             margin-bottom: 30px;
-            color: #7a1f1d; /* Ржаво-красный цвет */
-            text-shadow: 1px 1px 0px #000, 0 0 10px rgba(122, 31, 29, 0.4);
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3), 0 4px 20px rgba(212, 175, 55, 0.2);
             z-index: 2;
-            border: 2px dashed #423b2c;
-            padding: 10px 20px;
-            background: rgba(0, 0, 0, 0.5);
         }
 
-        /* Окно-дневник (раскрывается над кнопкой) */
+        /* Окно-карточка (раскрывается НАД кнопкой) */
         .modal {
             max-height: 0;
             opacity: 0;
             overflow: hidden;
-            /* Стилизация под старую пожелтевшую страницу из тетради Артема */
-            background: #171511; 
-            border: 2px solid #423b2c;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(122, 31, 29, 0.1);
+            /* Стиль современной цифровой афиши с размытием */
+            background: rgba(255, 255, 255, 0.08); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
             max-width: 550px;
             width: 100%;
-            transition: all 0.5s ease-in-out;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             margin-bottom: 0;
             z-index: 2;
         }
 
-        /* Активное состояние страницы дневника */
+        /* Плавное открытие карточки */
         .modal.active {
             max-height: 800px;
             opacity: 1;
-            padding: 35px 30px;
+            padding: 40px 30px;
             margin-bottom: 30px;
         }
 
         .modal h2 {
-            font-size: 1.3rem;
-            color: #a3906b;
-            text-transform: uppercase;
+            font-size: 1.6rem;
+            color: #ffd700; /* Золотой акцент */
             margin-bottom: 20px;
-            letter-spacing: 2px;
-            border-bottom: 1px solid #423b2c;
-            padding-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
         .modal p {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #c4b591;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #f3f4f6;
             white-space: pre-line;
             text-align: left;
         }
 
-        /* Суровая кнопка-рычаг гермозатвора */
+        /* Стильная кнопка запуска иллюминации */
         .main-btn {
             font-family: inherit;
-            text-transform: uppercase;
-            background: #3e4235; /* Защитный зеленый / хаки */
-            color: #d4c5a1;
-            border: 2px solid #5a614e;
-            padding: 16px 45px;
+            background: linear-gradient(135deg, #e60026 0%, #b3001a 100%); /* Красный рубиновый оттенок */
+            color: #ffffff;
+            border: none;
+            padding: 18px 45px;
             font-size: 1.1rem;
-            font-weight: bold;
-            letter-spacing: 2px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6), inset 0 1px 3px rgba(255,255,255,0.1);
-            transition: all 0.2s ease;
+            box-shadow: 0 10px 25px rgba(230, 0, 38, 0.3);
+            transition: all 0.3s ease;
             z-index: 2;
             margin-top: 20px;
         }
 
         .main-btn:hover {
-            background: #7a1f1d; /* Загорается красным при наведении */
-            color: #ffffff;
-            border-color: #a82c2a;
-            box-shadow: 0 0 15px rgba(122, 31, 29, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(230, 0, 38, 0.5), 0 0 15px rgba(255, 215, 0, 0.3);
+            background: linear-gradient(135deg, #ff1a40 0%, #cc001f 100%);
         }
 
         .main-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+            transform: translateY(1px);
+            box-shadow: 0 5px 15px rgba(230, 0, 38, 0.4);
         }
     </style>
 </head>
 <body>
 
-    <!-- Главный шифр-заголовок -->
-    <h1>СТАНЦИЯ_ВДНХ</h1>
+    <!-- Главный заголовок страницы -->
+    <h1>МОСКВА // НА СВЯЗИ 🏙️</h1>
 
-    <!-- ОКНО С ПОЗДРАВЛЕНИЕМ (Появится над кнопкой) -->
+    <!-- ОКНО С ПОЗДРАВЛЕНИЕМ -->
     <div class="modal" id="congratulationsModal">
-        <h2>[ ...Сквозь помехи радиостанций слышно чейто голос. ]</h2>
-        
-        
-        Грант поздровляю тебя с днем рождения желаю тебе денег, счасть, здоровья, стальных нервов и всего наилучшего // КОНЕЦ СВЯЗИ</p>
+        <h2>Дорогой именинник! ✨</h2>
+        <p>Пусть твоя жизнь будет такой же яркой, динамичной и масштабной, как главная столица! 
+
+        Желаю тебе открывать любые двери с легкостью, уверенно двигаться к своим целям по главным проспектам удачи и иметь такой же неисчерпаемый запас энергии. Пусть на твоем пути всегда горит зеленый свет, а все заветные мечты исполняются со скоростью экспресса. С днем рождения! Ура!</p>
     </div>
 
-    <!-- Тяжелая кнопка в самом низу страницы -->
-    <button class="main-btn" id="controlBtn" onclick="toggleMainModal()">Прослушать сигнал</button>
+    <!-- Кнопка, опускающаяся вниз -->
+    <button class="main-btn" id="controlBtn" onclick="toggleMainModal()">ВКЛЮЧИТЬ ИЛЛЮМИНАЦИЮ</button>
 
     <script>
         const controlBtn = document.getElementById('controlBtn');
         const congratsModal = document.getElementById('congratulationsModal');
         let isModalOpen = false;
 
-        // 1. АТМОСФЕРНОЕ ОСВЕЩЕНИЕ СТАНЦИИ (ПО ВРЕМЕНИ СУТОК)
+        // 1. СУТОЧНОЕ СВЕЧЕНИЕ СТОЛИЦЫ
         function updateBackground() {
             const hour = new Date().getHours(); 
             let backgroundStyle = "";
 
             if (hour >= 5 && hour < 11) {
-                // Утро: Тусклый желтоватый свет дизелей
-                backgroundStyle = "radial-gradient(circle at center, #24211a 0%, #0a0a08 100%)";
+                // Утро: Нежные рассветные акварельные тона над рекой
+                backgroundStyle = "linear-gradient(135deg, #1f2d5a 0%, #e6a19f 100%)";
             } else if (hour >= 11 && hour < 17) {
-                // День: Относительно стабильный серо-зеленый свет фильтров
-                backgroundStyle = "radial-gradient(circle at center, #191f1a 0%, #070807 100%)";
+                // День: Современный, деловой серо-голубой стиль Москва-Сити
+                backgroundStyle = "linear-gradient(135deg, #2b3a4a 0%, #4a6984 100%)";
             } else if (hour >= 17 && hour < 22) {
-                // Вечер: Глубокий ржаво-коричневый закат подземки
-                backgroundStyle = "radial-gradient(circle at center, #211612 0%, #080504 100%)";
+                // Вечер: Глубокие сумерки с золотистыми отсветами вечерних огней
+                backgroundStyle = "linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%)";
             } else {
-                // Ночь: Тревожный красный свет аварийных ламп
-                backgroundStyle = "radial-gradient(circle at center, #2b0b0b 0%, #080202 100%)";
+                // Ночь: Праздничный бархатный темно-синий
+                backgroundStyle = "linear-gradient(135deg, #05070c 0%, #0f131c 100%)";
             }
             document.body.style.background = backgroundStyle;
         }
         updateBackground();
 
-        // 2. ЛОГИКА СРАБАТЫВАНИЯ РЫЧАГА
+        // 2. ЗАПУСК САЛЮТА И ОТКРЫТИЕ КАРТОЧКИ
         function toggleMainModal() {
             if (!isModalOpen) {
-                // Плавно раскрываем дневник над кнопкой
                 congratsModal.classList.add('active');
-                controlBtn.innerText = "ЗАКРЫТЬ ГЕРМОЗАТВОР";
+                controlBtn.innerText = "ВЫКЛЮЧИТЬ ИЛЛЮМИНАЦИЮ";
                 isModalOpen = true;
 
-                // Вместо салюта — «искры из проводки» (огненные, желтые и белые вспышки)
+                // Роскошный салют (золотые, красные и серебряные искры)
                 if (window.confetti) {
                     confetti({ 
-                        particleCount: 100, 
-                        spread: 60, 
-                        origin: { y: 0.7 },
-                        colors: ['#ff5500', '#ffaa00', '#ffffff', '#555555']
+                        particleCount: 150, 
+                        spread: 80, 
+                        origin: { y: 0.65 },
+                        colors: ['#ffd700', '#ff0033', '#ffffff', '#ff6600']
                     });
                 }
             } else {
-                // Сворачиваем дневник обратно, кнопка поднимается
                 congratsModal.classList.remove('active');
-                controlBtn.innerText = "ОТКРЫТЬ ГЕРМОЗАТВОР";
+                controlBtn.innerText = "ВКЛЮЧИТЬ ИЛЛЮМИНАЦИЮ";
                 isModalOpen = false;
             }
         }
